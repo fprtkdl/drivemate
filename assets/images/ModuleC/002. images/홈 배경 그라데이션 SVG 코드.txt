@@ -1,0 +1,9 @@
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#aaa"/>
+      <stop offset="0.686" stop-color="#818181"/>
+      <stop offset="0.795" stop-color="#fff"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+  </defs>
+  <rect id="사각형_1460" data-name="사각형 1460" width="1" height="1583" fill="url(#linear-gradient)"/>

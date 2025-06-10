@@ -1,0 +1,38 @@
+name: drivemate
+description: "A new Flutter project."
+publish_to: 'none'
+version: 1.0.0+1
+environment:
+  sdk: ^3.7.2
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  flutter_svg: ^2.1.0
+  image_picker: ^1.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/ModuleA/003/
+    - assets/images/ModuleB/003/
+    - assets/images/ModuleB/003/weather/
+#    - assets/images/ModuleA/003/_weather
+
+  fonts:
+    - family: noto_sans_bold
+      fonts:
+        - asset: assets/fonts/NotoSansKR-Bold.ttf
+    - family: noto_sans_medium
+      fonts:
+        - asset: assets/fonts/NotoSansKR-Medium.ttf
+

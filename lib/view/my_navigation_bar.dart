@@ -1,0 +1,126 @@
+// import 'dart:io';
+//
+// import 'package:drivemate/widgets/tab_widget.dart';
+// import 'package:flutter/material.dart';
+//
+// import 'home_page.dart';
+//
+// class MyNavigationBar extends StatelessWidget {
+//   const MyNavigationBar({
+//     super.key,
+//     required File carImage,
+//     required String carName,
+//     required String carNumber,
+//   }) : _carImage = carImage,
+//        _carName = carName,
+//        _carNumber = carNumber;
+//
+//   final File _carImage;
+//   final String _carName;
+//   final String _carNumber;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     final size = MediaQuery.sizeOf(context);
+//     final width = size.width;
+//     final height = size.height;
+//     final List<Widget> tabViewList = [
+//       HomePageWidget(
+//         carImage: _carImage,
+//         carName: _carName,
+//         carNumber: _carNumber,
+//       ),
+//       ColoredBox(color: Colors.blue),
+//       ColoredBox(color: Colors.green),
+//       ColoredBox(color: Colors.yellow),
+//     ];
+//
+//     return DefaultTabController(
+//       initialIndex: 0,
+//       length: tabViewList.length,
+//       child: Scaffold(
+//         bottomNavigationBar: TabBar(
+//             indicatorColor: Colors.transparent,
+//             tabs: [
+//               TabWidget(
+//                 tabTitle: 'Home',
+//                 tabIconData: Icons.home_outlined,
+//               ),
+//               TabWidget(
+//                 tabTitle: 'Control',
+//                 tabIconData: Icons.control_camera_outlined,
+//               ),
+//               TabWidget(
+//                 tabTitle: 'Status',
+//                 tabIconData: Icons.directions_car_outlined,
+//               ),
+//               TabWidget(tabTitle: 'Share', tabIconData: Icons.device_hub),
+//             ],
+//           ),
+//
+//         body: TabBarView(children: tabViewList),
+//       ),
+//     );
+//   }
+// }
+import 'dart:io';
+
+import 'package:drivemate/widgets/tab_widget.dart';
+import 'package:flutter/material.dart';
+
+import 'home_page.dart';
+
+class MyNavigationBar extends StatelessWidget {
+  const MyNavigationBar({
+    super.key,
+    required carImage,
+    required carName,
+    required carNumber,
+  }) : _carImage = carImage,
+       _carName = carName,
+       _carNumber = carNumber;
+
+  final File _carImage;
+  final String _carName;
+  final String _carNumber;
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Widget> tabViewList = [
+      HomePageWidget(
+        carImage: _carImage,
+        carName: _carName,
+        carNumber: _carNumber,
+      ),
+      const ColoredBox(color: Colors.blue),
+      const ColoredBox(color: Colors.green),
+      const ColoredBox(color: Colors.yellow),
+    ];
+
+    return DefaultTabController(
+      initialIndex: 0,
+      length: tabViewList.length,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        bottomNavigationBar: TabBar(
+          indicatorColor: Colors.transparent,
+          labelColor: Colors.black,
+          unselectedLabelColor: Colors.grey,
+          tabs: const [
+            TabWidget(tabTitle: 'Home', tabIconData: Icons.home_outlined),
+            TabWidget(
+              tabTitle: 'Control',
+              tabIconData: Icons.control_camera_outlined,
+            ),
+            TabWidget(
+              tabTitle: 'Status',
+              tabIconData: Icons.directions_car_outlined,
+            ),
+            TabWidget(tabTitle: 'Share', tabIconData: Icons.device_hub),
+          ],
+        ),
+        body: TabBarView(children: tabViewList),
+      ),
+    );
+  }
+}
