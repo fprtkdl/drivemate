@@ -49,7 +49,6 @@ class HomePageState extends State<HomePageWidget> {
                 children: [
                   Container(
                     width: width,
-                    // height: ,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
@@ -159,16 +158,6 @@ class HomePageState extends State<HomePageWidget> {
                             child: Column(
                               children: [
                                 SizedBox(height: height * 0.015),
-                                VerticalMenuWidget(
-                                  svgImage:
-                                      'assets/images/ModuleB/003/car-svgrepo.svg',
-                                  menuText: 'Vehicle control',
-                                ),
-                                VerticalMenuWidget(
-                                  svgImage:
-                                      'assets/images/ModuleB/003/car-svgrepo.svg',
-                                  menuText: 'Vehicle control',
-                                ),
                                 VerticalMenuWidget(
                                   svgImage:
                                       'assets/images/ModuleB/003/car-svgrepo.svg',

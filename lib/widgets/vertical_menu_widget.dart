@@ -20,9 +20,7 @@ class VerticalMenuWidget extends StatelessWidget {
         height: height * 0.0625,
         child: DecoratedBox(
           decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(color: Colors.grey, width: 1),
-            ),
+            border: Border(bottom: BorderSide(color: Colors.grey, width: 1)),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,26 +29,20 @@ class VerticalMenuWidget extends StatelessWidget {
                 spacing: width * 0.04,
                 children: [
                   SvgPicture.asset(
-                    'assets/images/ModuleB/003/car-svgrepo.svg',
+                    _svgImage,
                     height: height * 0.03,
                     colorFilter: ColorFilter.mode(
                       Color.fromRGBO(186, 136, 130, 1),
                       BlendMode.srcIn,
                     ),
                   ),
-                  Text(
-                    'Vehicle control',
-                    style: TextStyle(color: Colors.white),
-                  ),
+                  Text(_menuText, style: TextStyle(color: Colors.white)),
                 ],
               ),
               SvgPicture.asset(
                 'assets/images/ModuleA/003/chevron_right.svg',
                 height: height * 0.03,
-                colorFilter: ColorFilter.mode(
-                  Colors.white,
-                  BlendMode.srcIn,
-                ),
+                colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
               ),
             ],
           ),
