@@ -44,6 +44,8 @@ class StatusPageState extends State<StatusPage> {
               ),
             ),
             bottom: TabBar(
+              labelPadding: null,
+              padding: null,
               tabs: [Tab(text: 'qwer'), Tab(text: 'qwer')],
               labelStyle: TextStyle(color: Color.fromRGBO(186, 136, 130, 1)),
             ),

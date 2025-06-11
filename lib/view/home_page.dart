@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:drivemate/widgets/file_image_frame_widget.dart';
 import 'package:drivemate/widgets/home_page_icon_text_button.dart';
@@ -28,6 +30,28 @@ class HomePageWidget extends StatefulWidget {
 
 class HomePageState extends State<HomePageWidget> {
   String lockImg = 'assets/images/ModuleB/003/lock.svg';
+  Timer? _refreshTimer;
+
+  bool onRefreshState = true;
+
+  void returnOnRefreshState() {
+    if (onRefreshState) {
+      setState(() {
+        onRefreshState = false;
+      });
+      Timer(Duration(seconds: 2), () {
+        setState(() {
+          onRefreshState = true;
+        });
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _refreshTimer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +59,18 @@ class HomePageState extends State<HomePageWidget> {
     final width = size.width;
     final height = size.height;
 
+    bool notificationPredicate(ScrollNotification notification) {
+      return onRefreshState;
+    }
+
     return SafeArea(
       child: RefreshIndicator(
+        notificationPredicate: notificationPredicate,
         onRefresh: () async {
-          await Future.delayed(Duration(seconds: 2));
+          await Future.delayed(Duration(milliseconds: 800));
+          setState(() {
+            returnOnRefreshState();
+          });
         },
         child: CustomScrollView(
           physics: AlwaysScrollableScrollPhysics(),
