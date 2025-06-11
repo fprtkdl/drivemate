@@ -43,17 +43,21 @@ class StatusPageState extends State<StatusPage> {
                 centerText: 'Status',
               ),
             ),
-            bottom: TabBar(
-              labelPadding: null,
-              padding: null,
-              tabs: [Tab(text: 'qwer'), Tab(text: 'qwer')],
-              labelStyle: TextStyle(color: Color.fromRGBO(186, 136, 130, 1)),
-            ),
           ),
-          body: TabBarView(
+          body: Column(
             children: [
-              ColoredBox(color: Colors.green),
-              ColoredBox(color: Colors.cyan),
+              TabBar(
+                tabs: [Tab(text: 'qwer'), Tab(text: 'qwer')],
+                labelStyle: TextStyle(color: Color.fromRGBO(186, 136, 130, 1)),
+              ),
+              Expanded(
+                child: TabBarView(
+                  children: [
+                    ColoredBox(color: Colors.green),
+                    ColoredBox(color: Colors.cyan),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

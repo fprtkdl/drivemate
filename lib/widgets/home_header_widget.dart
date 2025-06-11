@@ -30,11 +30,11 @@ class HomeHeaderWidget extends StatelessWidget {
     final height = size.height;
     return Container(
       width: width,
-      height: height * 0.08,
+      // height: height * 0.08,
       decoration: BoxDecoration(
         border: Border.all(
-          // color: Color.fromRGBO(169, 169, 169, 1.0),
-          color: Colors.cyanAccent,
+          color: Color.fromRGBO(169, 169, 169, 1.0),
+          // color: Colors.cyanAccent,
           width: 1.5,
         ),
       ),
