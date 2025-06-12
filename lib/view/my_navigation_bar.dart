@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'home_page.dart';
 
-class MyNavigationBar extends StatelessWidget {
+class MyNavigationBar extends StatefulWidget {
   const MyNavigationBar({
     super.key,
     required carImage,
@@ -21,18 +21,42 @@ class MyNavigationBar extends StatelessWidget {
   final String _carNumber;
 
   @override
+  State<StatefulWidget> createState() => MyNavigationBarState();
+}
+
+class MyNavigationBarState extends State<MyNavigationBar> {
+  @override
   Widget build(BuildContext context) {
+    bool doorState = false;
+    bool windowState = false;
+
+    changeDoorState() {
+      setState(() {
+        doorState = !doorState;
+      });
+    }
+
+    changeWindowState() {
+      setState(() {
+        windowState = !windowState;
+      });
+    }
+
     final List<Widget> tabViewList = [
       HomePageWidget(
-        carImage: _carImage,
-        carName: _carName,
-        carNumber: _carNumber,
+        carImage: widget._carImage,
+        carName: widget._carName,
+        carNumber: widget._carNumber,
+        changeDoorState: changeDoorState,
+        changeWindowState: changeWindowState,
       ),
       const ColoredBox(color: Colors.blue),
       StatusPage(
-        carImage: _carImage,
-        carName: _carName,
-        carNumber: _carNumber,
+        carImage: widget._carImage,
+        carName: widget._carName,
+        carNumber: widget._carNumber,
+        doorState: doorState,
+        windowState: windowState,
       ),
       const ColoredBox(color: Colors.yellow),
     ];

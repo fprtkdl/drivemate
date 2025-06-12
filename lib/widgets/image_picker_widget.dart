@@ -3,20 +3,15 @@ import 'dart:io';
 import 'package:drivemate/view/have_choice.dart';
 import 'package:drivemate/widgets/create_text_field_widget.dart';
 import 'package:drivemate/widgets/linear_gradient_button_widget.dart';
-import 'package:drivemate/widgets/svg_icon_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImagePickerWidget extends StatefulWidget {
-  const ImagePickerWidget({
-    super.key,
-    required String textButtonText,
-    required this.eventCode,
-  }) : _textButtonText = textButtonText;
+  const ImagePickerWidget({super.key, required String textButtonText})
+    : _textButtonText = textButtonText;
 
   final String _textButtonText;
-  final int eventCode;
 
   @override
   State<StatefulWidget> createState() => ImagePickerWidgetState();
@@ -27,13 +22,13 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
   late String carName;
   late String carNumber;
 
-  final textEditingController = TextEditingController();
-  final textEditingController2 = TextEditingController();
+  final textController = TextEditingController();
+  final numController = TextEditingController();
 
   @override
   void dispose() {
-    textEditingController.dispose();
-    textEditingController2.dispose();
+    textController.dispose();
+    numController.dispose();
     super.dispose();
   }
 
@@ -111,7 +106,10 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
                                     'assets/images/ModuleA/003/cancel.svg',
                                     width: height * 0.04,
                                     fit: BoxFit.fitWidth,
-                                    colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                                    colorFilter: ColorFilter.mode(
+                                      Colors.black,
+                                      BlendMode.srcIn,
+                                    ),
                                   ),
                                   onPressed: () {
                                     Navigator.pop(context);
@@ -144,12 +142,9 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
                                         inputIconData:
                                             Icons.directions_car_outlined,
                                         iconColor: Colors.black,
-                                        textEditingController:
-                                            textEditingController,
+                                        textEditingController: textController,
                                         onPressedCustom:
-                                            () =>
-                                                carName =
-                                                    textEditingController.text,
+                                            () => carName = textController.text,
                                       ),
                                       CreateTextField(
                                         inputBoxWidth: width * 0.85,
@@ -157,12 +152,10 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
                                         inputHintText: '차량 번호',
                                         inputIconData: Icons.pin_outlined,
                                         iconColor: Colors.black,
-                                        textEditingController:
-                                            textEditingController2,
+                                        textEditingController: numController,
                                         onPressedCustom:
                                             () =>
-                                                carNumber =
-                                                    textEditingController2.text,
+                                                carNumber = numController.text,
                                       ),
                                       Container(
                                         width: width * 0.85,
@@ -185,41 +178,45 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
                                                     (
                                                       BuildContext context,
                                                     ) => AlertDialog(
-                                                      content: Text(' '),
-                                                      actions: [
-                                                        TextButton(
-                                                          onPressed: () {
-                                                            _pickImage(
-                                                              ImageSource
-                                                                  .gallery,
-                                                              Navigator.pop(
-                                                                context,
-                                                              ),
-                                                            ).then((file) {
-                                                              setState(() {
-                                                                _image = file;
+
+                                                      content: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                                        children: [
+                                                          TextButton(
+                                                            onPressed: () {
+                                                              _pickImage(
+                                                                ImageSource
+                                                                    .gallery,
+                                                                Navigator.pop(
+                                                                  context,
+                                                                ),
+                                                              ).then((file) {
+                                                                setState(() {
+                                                                  _image = file;
+                                                                });
                                                               });
-                                                            });
-                                                          },
-                                                          child: Text('갤러리'),
-                                                        ),
-                                                        TextButton(
-                                                          onPressed: () {
-                                                            _pickImage(
-                                                              ImageSource
-                                                                  .camera,
-                                                              Navigator.pop(
-                                                                context,
-                                                              ),
-                                                            ).then((file) {
-                                                              setState(() {
-                                                                _image = file;
+                                                            },
+                                                            child: Text('갤러리'),
+                                                          ),
+                                                          TextButton(
+                                                            onPressed: () {
+                                                              _pickImage(
+                                                                ImageSource
+                                                                    .camera,
+                                                                Navigator.pop(
+                                                                  context,
+                                                                ),
+                                                              ).then((file) {
+                                                                setState(() {
+                                                                  _image = file;
+                                                                });
                                                               });
-                                                            });
-                                                          },
-                                                          child: Text('카메라'),
-                                                        ),
-                                                      ],
+                                                            },
+                                                            child: Text('카메라'),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
                                               ),
                                         ),
@@ -230,8 +227,8 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
                                 Text('이미지를 선택 해 주세요.'),
                                 Text('갤러리 앱 또는 카메라를 이용하실 수 있습니다.'),
                                 if (_image == null ||
-                                    textEditingController.text.isEmpty ||
-                                    textEditingController2.text.isEmpty)
+                                    textController.text.isEmpty ||
+                                    numController.text.isEmpty)
                                   LinearGradientButtonWidget(
                                     gradientButtonText: '차량 등록 후 이용하기',
                                   )
@@ -245,12 +242,8 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
                                             builder:
                                                 (context) => HaveChoice(
                                                   carImage: _image!,
-                                                  carName:
-                                                      textEditingController
-                                                          .text,
-                                                  carNumber:
-                                                      textEditingController2
-                                                          .text,
+                                                  carName: textController.text,
+                                                  carNumber: numController.text,
                                                 ),
                                           ),
                                         ),
@@ -268,8 +261,8 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
           ).whenComplete(() {
             setState(() {
               _image = null;
-              textEditingController.clear();
-              textEditingController2.clear();
+              textController.clear();
+              numController.clear();
             });
           });
         },

@@ -9,13 +9,16 @@ class HomePageIconTextButton extends StatefulWidget {
     required String svgImg,
     String? selectedImg,
     required String buttonText,
+    VoidCallback? changeState,
   }) : _svgImg = svgImg,
        _selectedImg = selectedImg,
-       _buttonText = buttonText;
+       _buttonText = buttonText,
+       _changeState = changeState;
 
   final String _svgImg;
   final String? _selectedImg;
   final String _buttonText;
+  final VoidCallback? _changeState;
 
   @override
   State<StatefulWidget> createState() => HomePageIconTextButtonState();
@@ -86,6 +89,7 @@ class HomePageIconTextButtonState extends State<HomePageIconTextButton> {
             onPressed: () {
               setState(() {
                 _isSelected = !_isSelected;
+                lockImgChange;
                 if (widget._svgImg == 'assets/images/ModuleB/003/warning.svg' &&
                     _isSelected) {
                   _blinkStart();

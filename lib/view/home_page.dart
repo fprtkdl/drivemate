@@ -14,13 +14,19 @@ class HomePageWidget extends StatefulWidget {
     required File carImage,
     required String carName,
     required String carNumber,
+    VoidCallback? changeDoorState,
+    VoidCallback? changeWindowState,
   }) : _carImage = carImage,
        _carName = carName,
-       _carNumber = carNumber;
+       _carNumber = carNumber,
+       _changeDoorState = changeDoorState,
+       _changeWindowState = changeWindowState;
 
   final File _carImage;
   final String _carName;
   final String _carNumber;
+  final VoidCallback? _changeDoorState;
+  final VoidCallback? _changeWindowState;
 
   @override
   State<StatefulWidget> createState() => HomePageState();
@@ -83,7 +89,7 @@ class HomePageState extends State<HomePageWidget> {
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        stops: [0.575, 0.65],
+                        stops: [0.475, 0.55],
                         colors: [
                           Color.fromRGBO(169, 169, 169, 1.0),
                           Color.fromRGBO(255, 255, 255, 1.0),
@@ -144,11 +150,13 @@ class HomePageState extends State<HomePageWidget> {
                                 selectedImg:
                                     'assets/images/ModuleB/003/lock_open.svg',
                                 buttonText: '도어',
+                                changeState: widget._changeDoorState,
                               ),
                               HomePageIconTextButton(
                                 svgImg:
                                     'assets/images/ModuleB/003/car-door.svg',
                                 buttonText: '창문',
+                                changeState: widget._changeWindowState,
                               ),
                               HomePageIconTextButton(
                                 svgImg: 'assets/images/ModuleB/003/warning.svg',

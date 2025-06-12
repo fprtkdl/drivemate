@@ -36,7 +36,7 @@ class ChoicePageState extends State<ChoicePage> {
                 height: height * 0.3,
                 child: Image.asset('assets/images/ModuleA/003/front-car.webp'),
               ),
-              ImagePickerWidget(textButtonText: '차량 선택하기', eventCode: 0),
+              ImagePickerWidget(textButtonText: '차량 선택하기'),
             ],
           ),
         ),
