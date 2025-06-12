@@ -15,6 +15,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<LoginPage> {
+  TextEditingController userController = TextEditingController();
+  TextEditingController passController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
@@ -32,8 +35,10 @@ class LoginPageState extends State<LoginPage> {
             SizedBox(height: height * 0.1),
             MainLogo(),
             SizedBox(
-              height: height*0.3,
-              child: Image(image: AssetImage('assets/images/ModuleA/003/red car.png')),
+              height: height * 0.3,
+              child: Image(
+                image: AssetImage('assets/images/ModuleA/003/red car.png'),
+              ),
             ),
             Text(
               '로그인 정보를 입력하세요.',
@@ -54,12 +59,14 @@ class LoginPageState extends State<LoginPage> {
                     iconHeight: height * 0.04,
                     inputHintText: 'Username',
                     inputIconData: Icons.person,
+                    textEditingController: userController,
                   ),
                   CreateTextField(
                     inputBoxWidth: width * 0.9,
                     iconHeight: height * 0.04,
                     inputHintText: 'Password',
                     inputIconData: Icons.lock,
+                    textEditingController: passController,
                   ),
                 ],
               ),
@@ -67,11 +74,21 @@ class LoginPageState extends State<LoginPage> {
             SwitchWidget(),
             LinearGradientButtonWidget(
               gradientButtonText: 'Sign In',
-              onPressedCustom:
-                  () => Navigator.push(
+              onPressedCustom: () {
+                String userText =
+                    userController.text.trim(); // UsernameTextField
+                String passText =
+                    passController.text.trim(); // PasswordTextField
+                if (userText.isNotEmpty &&
+                    userText.length >= 4 &&
+                    passText.isNotEmpty &&
+                    passText.length >= 4) {
+                  Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => ChoicePage()),
-                  ),
+                  );
+                }
+              },
             ),
             Flexible(
               child: Column(

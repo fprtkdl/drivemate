@@ -18,7 +18,7 @@ class TabWidget extends StatelessWidget {
       child: Column(
         children: [
           Icon(_tabIconData, size: height * 0.05),
-          Text(_tabTitle, style: TextStyle(fontFamily: 'noto_sans_bold'),),
+          Text(_tabTitle, style: TextStyle(fontFamily: 'noto_sans_bold')),
         ],
       ),
     );

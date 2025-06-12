@@ -28,6 +28,12 @@ class SingleColorWidget extends StatelessWidget {
       color: _simpleButtonColor,
 
       child: TextButton(
+        style: ButtonStyle(
+          overlayColor: WidgetStateColor.resolveWith(
+            (states) => Colors.transparent,
+          ),
+          splashFactory: NoSplash.splashFactory,
+        ),
         onPressed: () {},
         child: Text(
           _simpleButtonText,

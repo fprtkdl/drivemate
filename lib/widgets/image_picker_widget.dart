@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:drivemate/view/have_choice.dart';
 import 'package:drivemate/widgets/create_text_field_widget.dart';
 import 'package:drivemate/widgets/linear_gradient_button_widget.dart';
+import 'package:drivemate/widgets/svg_icon_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
@@ -88,26 +89,39 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(
-                            width: width * 0.85,
+                            width: width * 0.95,
                             height: height * 0.06,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  '차량등록하기',
-                                  style: TextStyle(
-                                    fontFamily: 'noto_sans_bold',
-                                    fontSize: height * 0.02,
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: height * 0.01,
+                                  ),
+                                  child: Text(
+                                    '차량등록하기',
+                                    style: TextStyle(
+                                      fontFamily: 'noto_sans_bold',
+                                      fontSize: height * 0.02,
+                                    ),
                                   ),
                                 ),
                                 IconButton(
-                                  icon: Icon(
-                                    Icons.cancel_outlined,
-                                    size: height * 0.04,
+                                  icon: SvgPicture.asset(
+                                    'assets/images/ModuleA/003/cancel.svg',
+                                    width: height * 0.04,
+                                    fit: BoxFit.fitWidth,
+                                    colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
                                   ),
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
+                                  style: ButtonStyle(
+                                    overlayColor: WidgetStateColor.resolveWith(
+                                      (states) => Colors.transparent,
+                                    ),
+                                    splashFactory: NoSplash.splashFactory,
+                                  ),
                                 ),
                               ],
                             ),

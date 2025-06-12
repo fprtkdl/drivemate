@@ -96,7 +96,10 @@ class HomePageIconTextButtonState extends State<HomePageIconTextButton> {
             },
             icon: SvgPicture.asset(
               lockImgChange!,
-              colorFilter: ColorFilter.mode(_buttonColorChange(), BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(
+                _buttonColorChange(),
+                BlendMode.srcIn,
+              ),
               height: width * 0.175,
             ),
           ),

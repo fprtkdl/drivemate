@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:math';
-
 import 'package:drivemate/widgets/file_image_frame_widget.dart';
 import 'package:drivemate/widgets/home_page_icon_text_button.dart';
 import 'package:drivemate/widgets/sub_state.dart';

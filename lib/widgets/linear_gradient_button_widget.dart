@@ -37,8 +37,13 @@ class LinearGradientButtonWidgetState
         borderRadius: BorderRadius.circular(15),
       ),
       child: TextButton(
+        style: ButtonStyle(
+          overlayColor: WidgetStateColor.resolveWith(
+                (states) => Colors.transparent,
+          ),
+          splashFactory: NoSplash.splashFactory,
+        ),
         onPressed: () {
-
           widget.onPressedCustom?.call();
         },
         child: Text(

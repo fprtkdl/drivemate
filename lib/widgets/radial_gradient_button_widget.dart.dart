@@ -39,6 +39,12 @@ class RadialGradientButtonWidgetState
         borderRadius: BorderRadius.circular(15),
       ),
       child: TextButton(
+        style: ButtonStyle(
+          overlayColor: WidgetStateColor.resolveWith(
+            (states) => Colors.transparent,
+          ),
+          splashFactory: NoSplash.splashFactory,
+        ),
         onPressed: () {
           if (widget._eventCode == 1) {
             Navigator.push(
