@@ -9,35 +9,42 @@ class HomePageIconTextButton extends StatefulWidget {
     required String svgImg,
     String? selectedImg,
     required String buttonText,
-    VoidCallback? changeState,
+    required bool isSelected,
+    VoidCallback? changed,
   }) : _svgImg = svgImg,
        _selectedImg = selectedImg,
        _buttonText = buttonText,
-       _changeState = changeState;
+       _isSelected = isSelected,
+       _changed = changed;
 
   final String _svgImg;
   final String? _selectedImg;
   final String _buttonText;
-  final VoidCallback? _changeState;
+  final bool _isSelected;
+  final VoidCallback? _changed;
 
   @override
   State<StatefulWidget> createState() => HomePageIconTextButtonState();
 }
 
 class HomePageIconTextButtonState extends State<HomePageIconTextButton> {
-  bool _isSelected = false;
+  Color transparent = Colors.transparent;
+  Color black = Colors.black;
+  Color white = Colors.white;
+
   Timer? _timer;
-  Color warningColorState = Colors.black; // basic
+  bool warningColorState = false;
+  Color iconColor = Colors.white;
 
   void _blinkStart() {
     setState(() {
-      warningColorState = Colors.white;
+      warningColorState = !widget._isSelected;
+      iconColor = white;
     });
     _timer?.cancel();
     _timer = Timer.periodic(Duration(seconds: 1), (_) {
       setState(() {
-        warningColorState =
-            warningColorState == Colors.white ? Colors.red : Colors.white;
+        iconColor = warningColorState ? Colors.red : white;
       });
     });
   }
@@ -45,16 +52,16 @@ class HomePageIconTextButtonState extends State<HomePageIconTextButton> {
   void _blinkStop() {
     _timer?.cancel();
     setState(() {
-      warningColorState = Colors.black;
+      warningColorState = widget._isSelected;
     });
   }
 
-  Color _buttonColorChange() {
+  Color _buttonColor() {
     if (widget._svgImg == 'assets/images/ModuleB/003/warning.svg') {
-      return warningColorState;
-    } else {
-      return _isSelected ? Colors.white : Colors.black;
+      return widget._isSelected ? white : black;
     }
+
+    return widget._isSelected ? white : black;
   }
 
   @override
@@ -71,7 +78,7 @@ class HomePageIconTextButtonState extends State<HomePageIconTextButton> {
     final lockImgChange =
         widget._selectedImg == null
             ? widget._svgImg
-            : (_isSelected ? widget._selectedImg : widget._svgImg);
+            : (widget._isSelected ? widget._selectedImg : widget._svgImg);
 
     return Column(
       children: [
@@ -79,19 +86,19 @@ class HomePageIconTextButtonState extends State<HomePageIconTextButton> {
           width: width * 0.175,
           height: width * 0.175,
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.black, width: 2),
-            color: _isSelected ? Colors.black : Colors.transparent,
+            border: Border.all(color: black, width: 2),
+            color: widget._isSelected ? black : transparent,
             borderRadius: BorderRadius.circular(height * 0.01),
           ),
           child: IconButton(
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
+            splashColor: transparent,
+            highlightColor: transparent,
             onPressed: () {
               setState(() {
-                _isSelected = !_isSelected;
+                widget._changed?.call();
                 lockImgChange;
                 if (widget._svgImg == 'assets/images/ModuleB/003/warning.svg' &&
-                    _isSelected) {
+                    widget._isSelected) {
                   _blinkStart();
                 } else {
                   _blinkStop();
@@ -100,10 +107,7 @@ class HomePageIconTextButtonState extends State<HomePageIconTextButton> {
             },
             icon: SvgPicture.asset(
               lockImgChange!,
-              colorFilter: ColorFilter.mode(
-                _buttonColorChange(),
-                BlendMode.srcIn,
-              ),
+              colorFilter: ColorFilter.mode(_buttonColor(), BlendMode.srcIn),
               height: width * 0.175,
             ),
           ),

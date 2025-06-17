@@ -2,15 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CarStatusPageWidget extends StatefulWidget {
-  const CarStatusPageWidget({
-    super.key,
-    required bool doorState,
-    required bool windowState,
-  }) : _doorState = doorState,
-       _windowState = windowState;
+  const CarStatusPageWidget({super.key});
 
-  final bool _doorState;
-  final bool _windowState;
   @override
   State<StatefulWidget> createState() => CarStatusPageWidgetState();
 }
@@ -21,6 +14,8 @@ class CarStatusPageWidgetState extends State<CarStatusPageWidget> {
     final size = MediaQuery.sizeOf(context);
     final width = size.width;
     final height = size.height;
+    bool _isSelected = false;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
@@ -63,7 +58,7 @@ class CarStatusPageWidgetState extends State<CarStatusPageWidget> {
                                 'assets/images/ModuleB/003/door2.svg',
                                 height: height * 0.04,
                                 colorFilter: ColorFilter.mode(
-                                  widget._doorState
+                                  _isSelected
                                       ? Color.fromRGBO(186, 136, 130, 1)
                                       : Colors.black,
                                   BlendMode.srcIn,
@@ -79,10 +74,10 @@ class CarStatusPageWidgetState extends State<CarStatusPageWidget> {
                             ],
                           ),
                           Text(
-                            widget._doorState ? '열림' : '닫힘',
+                            _isSelected ? '열림' : '닫힘',
                             style: TextStyle(
                               color:
-                                  widget._doorState
+                                  _isSelected
                                       ? Color.fromRGBO(186, 136, 130, 1)
                                       : Colors.black54,
                               fontSize: height * 0.02,

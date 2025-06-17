@@ -10,19 +10,13 @@ class StatusPage extends StatefulWidget {
     required File carImage,
     required String carName,
     required String carNumber,
-    required bool doorState,
-    required bool windowState,
   }) : _carImage = carImage,
        _carName = carName,
-       _carNumber = carNumber,
-       _doorState = doorState,
-       _windowState = windowState;
+       _carNumber = carNumber;
 
   final File _carImage;
   final String _carName;
   final String _carNumber;
-  final bool _doorState;
-  final bool _windowState;
   @override
   State<StatusPage> createState() => StatusPageState();
 }
@@ -75,10 +69,7 @@ class StatusPageState extends State<StatusPage> {
               Expanded(
                 child: TabBarView(
                   children: [
-                    CarStatusPageWidget(
-                      doorState: widget._doorState,
-                      windowState: widget._windowState,
-                    ),
+                    CarStatusPageWidget(),
                     ColoredBox(color: Colors.cyan),
                   ],
                 ),

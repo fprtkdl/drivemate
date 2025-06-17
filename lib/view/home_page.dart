@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:drivemate/provider/home_icon_provider.dart';
 import 'package:drivemate/widgets/file_image_frame_widget.dart';
 import 'package:drivemate/widgets/home_page_icon_text_button.dart';
 import 'package:drivemate/widgets/sub_state.dart';
 import 'package:drivemate/widgets/vertical_menu_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/home_header_widget.dart';
 
@@ -14,19 +16,13 @@ class HomePageWidget extends StatefulWidget {
     required File carImage,
     required String carName,
     required String carNumber,
-    VoidCallback? changeDoorState,
-    VoidCallback? changeWindowState,
   }) : _carImage = carImage,
        _carName = carName,
-       _carNumber = carNumber,
-       _changeDoorState = changeDoorState,
-       _changeWindowState = changeWindowState;
+       _carNumber = carNumber;
 
   final File _carImage;
   final String _carName;
   final String _carNumber;
-  final VoidCallback? _changeDoorState;
-  final VoidCallback? _changeWindowState;
 
   @override
   State<StatefulWidget> createState() => HomePageState();
@@ -137,32 +133,48 @@ class HomePageState extends State<HomePageWidget> {
                         ),
                         SizedBox(
                           width: width * 0.85,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              HomePageIconTextButton(
-                                svgImg:
-                                    'assets/images/ModuleB/003/power_settings.svg',
-                                buttonText: '시동',
-                              ),
-                              HomePageIconTextButton(
-                                svgImg: 'assets/images/ModuleB/003/lock.svg',
-                                selectedImg:
-                                    'assets/images/ModuleB/003/lock_open.svg',
-                                buttonText: '도어',
-                                changeState: widget._changeDoorState,
-                              ),
-                              HomePageIconTextButton(
-                                svgImg:
-                                    'assets/images/ModuleB/003/car-door.svg',
-                                buttonText: '창문',
-                                changeState: widget._changeWindowState,
-                              ),
-                              HomePageIconTextButton(
-                                svgImg: 'assets/images/ModuleB/003/warning.svg',
-                                buttonText: '비상등',
-                              ),
-                            ],
+                          child: Consumer<HomeIconProvider>(
+                            builder: (context, provider, _) {
+                              return Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  HomePageIconTextButton(
+                                    svgImg:
+                                        'assets/images/ModuleB/003/power_settings.svg',
+                                    buttonText: '시동',
+                                    isSelected: provider.powerState,
+                                    changed:
+                                        () => provider.changeState('power'),
+                                  ),
+                                  HomePageIconTextButton(
+                                    svgImg:
+                                        'assets/images/ModuleB/003/lock.svg',
+                                    selectedImg:
+                                        'assets/images/ModuleB/003/lock_open.svg',
+                                    buttonText: '도어',
+                                    isSelected: provider.doorState,
+                                    changed: () => provider.changeState('door'),
+                                  ),
+                                  HomePageIconTextButton(
+                                    svgImg:
+                                        'assets/images/ModuleB/003/car-door.svg',
+                                    buttonText: '창문',
+                                    isSelected: provider.windowState,
+                                    changed:
+                                        () => provider.changeState('window'),
+                                  ),
+                                  HomePageIconTextButton(
+                                    svgImg:
+                                        'assets/images/ModuleB/003/warning.svg',
+                                    buttonText: '비상등',
+                                    isSelected: provider.warringState,
+                                    changed:
+                                        () => provider.changeState('warring'),
+                                  ),
+                                ],
+                              );
+                            },
                           ),
                         ),
                         Column(

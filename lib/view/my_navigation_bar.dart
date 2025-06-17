@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:drivemate/provider/home_icon_provider.dart';
 import 'package:drivemate/view/status_page.dart';
 import 'package:drivemate/widgets/tab_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'home_page.dart';
 
@@ -27,36 +29,18 @@ class MyNavigationBar extends StatefulWidget {
 class MyNavigationBarState extends State<MyNavigationBar> {
   @override
   Widget build(BuildContext context) {
-    bool doorState = false;
-    bool windowState = false;
-
-    changeDoorState() {
-      setState(() {
-        doorState = !doorState;
-      });
-    }
-
-    changeWindowState() {
-      setState(() {
-        windowState = !windowState;
-      });
-    }
-
     final List<Widget> tabViewList = [
       HomePageWidget(
         carImage: widget._carImage,
         carName: widget._carName,
         carNumber: widget._carNumber,
-        changeDoorState: changeDoorState,
-        changeWindowState: changeWindowState,
       ),
+
       const ColoredBox(color: Colors.blue),
       StatusPage(
         carImage: widget._carImage,
         carName: widget._carName,
         carNumber: widget._carNumber,
-        doorState: doorState,
-        windowState: windowState,
       ),
       const ColoredBox(color: Colors.yellow),
     ];
@@ -70,6 +54,7 @@ class MyNavigationBarState extends State<MyNavigationBar> {
           indicatorColor: Colors.transparent,
           labelColor: Colors.black,
           unselectedLabelColor: Colors.grey,
+
           tabs: const [
             TabWidget(tabTitle: 'Home', tabIconData: Icons.home_outlined),
             TabWidget(
@@ -83,7 +68,10 @@ class MyNavigationBarState extends State<MyNavigationBar> {
             TabWidget(tabTitle: 'Share', tabIconData: Icons.device_hub),
           ],
         ),
-        body: TabBarView(children: tabViewList),
+        body: ChangeNotifierProvider(
+          create: (BuildContext context) => HomeIconProvider(),
+          child: TabBarView(children: tabViewList),
+        ),
       ),
     );
   }
