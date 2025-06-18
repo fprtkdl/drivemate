@@ -5,6 +5,7 @@ import 'package:drivemate/widgets/file_image_frame_widget.dart';
 import 'package:drivemate/widgets/home_page_icon_text_button.dart';
 import 'package:drivemate/widgets/sub_state.dart';
 import 'package:drivemate/widgets/vertical_menu_widget.dart';
+import 'package:drivemate/widgets/warring_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -164,14 +165,7 @@ class HomePageState extends State<HomePageWidget> {
                                     changed:
                                         () => provider.changeState('window'),
                                   ),
-                                  HomePageIconTextButton(
-                                    svgImg:
-                                        'assets/images/ModuleB/003/warning.svg',
-                                    buttonText: '비상등',
-                                    isSelected: provider.warringState,
-                                    changed:
-                                        () => provider.changeState('warring'),
-                                  ),
+                                  WarringButtonWidget(),
                                 ],
                               );
                             },

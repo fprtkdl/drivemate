@@ -15,29 +15,18 @@ class HomeIconProvider extends ChangeNotifier {
     switch (name) {
       case 'power':
         _powerState = !_powerState;
+        break;
       case 'door':
         _doorState = !_doorState;
+        break;
       case 'window':
         _windowState = !_windowState;
+        break;
       case 'warring':
         _warringState = !_warringState;
+        break;
     }
 
     notifyListeners();
   }
 }
-
-// changePowerState() {
-//   _powerState = !_powerState;
-//   notifyListeners();
-// }
-//
-// changeDoorState() {
-//   _doorState = !_doorState;
-//   notifyListeners();
-// }
-//
-// changeWindowState() {
-//   _windowState = !_windowState;
-//   notifyListeners();
-// }
