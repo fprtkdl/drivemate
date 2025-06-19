@@ -4,16 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-// 아잇~ 씨팔 난 모르겠다~
-
 class WarringButtonWidget extends StatefulWidget {
   const WarringButtonWidget({super.key});
 
   @override
-  State<StatefulWidget> createState() => WarringButtonWidgetState();
+  State<WarringButtonWidget> createState() => _WarringButtonWidgetState();
 }
 
-class WarringButtonWidgetState extends State<WarringButtonWidget> {
+class _WarringButtonWidgetState extends State<WarringButtonWidget> {
   final String _svgImg = 'assets/images/ModuleB/003/warning.svg';
   final String _buttonText = '비상등';
 
@@ -23,22 +21,35 @@ class WarringButtonWidgetState extends State<WarringButtonWidget> {
   final Color _black = Colors.black;
 
   Timer? _timer;
-  late Color warringColor;
+  Color _warringColor = Colors.black;
+
+  @override
+  void initState() {
+    super.initState();
+    _warringColor = _black;
+  }
 
   void _startBlink() {
     _timer?.cancel();
-    warringColor = _white;
-    Timer.periodic(Duration(seconds: 1), (_) {
+    if (_warringColor != _white) {
       setState(() {
-        warringColor = warringColor == _white ? _red : _white;
+        _warringColor = _white;
+      });
+    }
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (!mounted) return;
+      // mounted 은 연결 유무를 알 수 있다, 얘가 false 면 죽음, true 면 생존, 죽은 사람 불러봤자 의미없는 것 처럼 프밍 에서도 !mounted 상태에서 위젯 호출하면 오류난다.
+      setState(() {
+        _warringColor = _warringColor == _white ? _red : _white;
       });
     });
   }
 
   void _stopBlink() {
     _timer?.cancel();
+    _timer = null;
     setState(() {
-      warringColor = _black;
+      _warringColor = _black;
     });
   }
 
@@ -56,36 +67,40 @@ class WarringButtonWidgetState extends State<WarringButtonWidget> {
 
     return Consumer<HomeIconProvider>(
       builder: (context, provider, _) {
-        bool _isSelected = provider.warringState;
+        bool isSelected = provider.warringState;
+
+        // 깜빡임 제어
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (isSelected && _timer == null) {
+            _startBlink();
+          } else if (!isSelected && _timer != null) {
+            _stopBlink();
+          }
+        });
 
         return Column(
           children: [
             Container(
               width: width * 0.175,
               height: width * 0.175,
-
               decoration: BoxDecoration(
                 border: Border.all(color: _black, width: 2),
-                color: _isSelected ? _black : _transparent,
+                color: isSelected ? _black : _transparent,
                 borderRadius: BorderRadius.circular(height * 0.01),
               ),
               child: IconButton(
                 splashColor: _transparent,
                 highlightColor: _transparent,
                 onPressed: () {
-                  setState(() {
-                    // provider.changeState('warring');
-                    context.read<HomeIconProvider>().changeState('warring');
-                  });
+                  provider.changeState('warring');
                 },
                 icon: SvgPicture.asset(
                   _svgImg,
-                  colorFilter: ColorFilter.mode(warringColor, BlendMode.srcIn),
+                  colorFilter: ColorFilter.mode(_warringColor, BlendMode.srcIn),
                   height: width * 0.175,
                 ),
               ),
             ),
-
             SizedBox(
               width: width * 0.175,
               height: height * 0.035,
@@ -103,46 +118,5 @@ class WarringButtonWidgetState extends State<WarringButtonWidget> {
         );
       },
     );
-
-    // Column(
-    //   children: [
-    //     Container(
-    //       width: width * 0.175,
-    //       height: width * 0.175,
-    //
-    //       decoration: BoxDecoration(
-    //         border: Border.all(color: _black, width: 2),
-    //         // color: _isSelected ? _black : _transparent,
-    //         borderRadius: BorderRadius.circular(height * 0.01),
-    //       ),
-    //       child: IconButton(
-    //         splashColor: _transparent,
-    //         highlightColor: _transparent,
-    //         onPressed: () {
-    //           setState(() {});
-    //         },
-    //         icon: SvgPicture.asset(
-    //           _svgImg,
-    //           colorFilter: ColorFilter.mode(_black, BlendMode.srcIn),
-    //           height: width * 0.175,
-    //         ),
-    //       ),
-    //     ),
-    //
-    //     SizedBox(
-    //       width: width * 0.175,
-    //       height: height * 0.035,
-    //       child: Center(
-    //         child: Text(
-    //           _buttonText,
-    //           style: TextStyle(
-    //             fontSize: height * 0.02,
-    //             fontFamily: 'noto_sans_medium',
-    //           ),
-    //         ),
-    //       ),
-    //     ),
-    //   ],
-    // );
   }
 }
