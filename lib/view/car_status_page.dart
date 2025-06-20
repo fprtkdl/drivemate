@@ -1,5 +1,9 @@
+import 'package:drivemate/widgets/status_page_car_child.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+
+import 'package:provider/provider.dart';
+
+import '../provider/home_icon_provider.dart';
 
 class CarStatusPageWidget extends StatefulWidget {
   const CarStatusPageWidget({super.key});
@@ -14,7 +18,6 @@ class CarStatusPageWidgetState extends State<CarStatusPageWidget> {
     final size = MediaQuery.sizeOf(context);
     final width = size.width;
     final height = size.height;
-    bool _isSelected = false;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -23,7 +26,6 @@ class CarStatusPageWidgetState extends State<CarStatusPageWidget> {
           Container(
             width: width,
             height: height * 0.075,
-            color: Colors.red,
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.symmetric(horizontal: width * 0.05),
             child: Text(
@@ -36,60 +38,33 @@ class CarStatusPageWidgetState extends State<CarStatusPageWidget> {
           ),
           SingleChildScrollView(
             scrollDirection: Axis.vertical,
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: width * 0.075),
-                  child: SizedBox(
-                    height: height * 0.08,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(color: Colors.grey, width: 1),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            spacing: width * 0.04,
-                            children: [
-                              SvgPicture.asset(
-                                'assets/images/ModuleB/003/door2.svg',
-                                height: height * 0.04,
-                                colorFilter: ColorFilter.mode(
-                                  _isSelected
-                                      ? Color.fromRGBO(186, 136, 130, 1)
-                                      : Colors.black,
-                                  BlendMode.srcIn,
-                                ),
-                              ),
-                              Text(
-                                '도어',
-                                style: TextStyle(
-                                  fontSize: height * 0.02,
-                                  fontFamily: 'noto_sans_bold',
-                                ),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            _isSelected ? '열림' : '닫힘',
-                            style: TextStyle(
-                              color:
-                                  _isSelected
-                                      ? Color.fromRGBO(186, 136, 130, 1)
-                                      : Colors.black54,
-                              fontSize: height * 0.02,
-                              fontFamily: 'noto_sans_bold',
-                            ),
-                          ),
-                        ],
-                      ),
+            child: Consumer<HomeIconProvider>(
+              builder: (context, provider, _) {
+                return Column(
+                  children: [
+                    StatusPageCarChildWidget(
+                      svgImage: 'assets/images/ModuleB/003/door2.svg',
+                      barBtnText: '도어',
+                      state: provider.doorState,
                     ),
-                  ),
-                ),
-              ],
+                    StatusPageCarChildWidget(
+                      svgImage: 'assets/images/ModuleB/003/window.svg',
+                      barBtnText: '창문',
+                      state: provider.windowState,
+                    ),
+                    StatusPageCarChildWidget(
+                      svgImage: 'assets/images/ModuleB/003/tailgate.svg',
+                      barBtnText: '테일게이트',
+                      state: provider.powerState,
+                    ),
+                    StatusPageCarChildWidget(
+                      svgImage: 'assets/images/ModuleB/003/bonnet.svg',
+                      barBtnText: '후드',
+                      state: provider.powerState,
+                    ),
+                  ],
+                );
+              },
             ),
           ),
         ],

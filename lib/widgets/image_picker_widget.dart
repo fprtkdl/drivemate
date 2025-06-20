@@ -30,11 +30,9 @@ class ImagePickerWidget extends StatefulWidget {
 
 class ImagePickerWidgetState extends State<ImagePickerWidget> {
   File? _image;
-  late String carName;
-  late String carNumber;
-
   final textController = TextEditingController();
   final numController = TextEditingController();
+  final ImagePicker picker = ImagePicker();
 
   @override
   void dispose() {
@@ -43,13 +41,7 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
     super.dispose();
   }
 
-  final ImagePicker picker = ImagePicker();
-
-  SvgPicture imagePickerImage = SvgPicture.asset(
-    'assets/images/ModuleA/003/image.svg',
-  );
-
-  Future<File?> _pickImage(ImageSource imageSource, void pop) async {
+  Future<File?> _pickImage(ImageSource imageSource) async {
     final pickFile = await picker.pickImage(source: imageSource);
     if (pickFile != null) {
       return File(pickFile.path);
@@ -100,7 +92,7 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Container(
+                                Padding(
                                   padding: EdgeInsets.symmetric(
                                     horizontal: height * 0.01,
                                   ),
@@ -109,7 +101,6 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
                                     style: TextStyle(
                                       fontFamily: 'noto_sans_bold',
                                       fontSize: height * 0.02,
-                                      color: widget._textColor ?? Colors.white,
                                     ),
                                   ),
                                 ),
@@ -123,9 +114,7 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
                                       BlendMode.srcIn,
                                     ),
                                   ),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
+                                  onPressed: () => Navigator.pop(context),
                                   style: ButtonStyle(
                                     overlayColor: WidgetStateColor.resolveWith(
                                       (states) => Colors.transparent,
@@ -155,8 +144,6 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
                                             Icons.directions_car_outlined,
                                         iconColor: Colors.black,
                                         textEditingController: textController,
-                                        onPressedCustom:
-                                            () => carName = textController.text,
                                       ),
                                       CreateTextField(
                                         inputBoxWidth: width * 0.85,
@@ -165,9 +152,6 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
                                         inputIconData: Icons.pin_outlined,
                                         iconColor: Colors.black,
                                         textEditingController: numController,
-                                        onPressedCustom:
-                                            () =>
-                                                carNumber = numController.text,
                                       ),
                                       Container(
                                         width: width * 0.85,
@@ -181,7 +165,7 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
                                         child: MaterialButton(
                                           child:
                                               _image == null
-                                                  ? Text('')
+                                                  ? const SizedBox.shrink()
                                                   : Image.file(_image!),
                                           onPressed:
                                               () => showDialog(
@@ -194,18 +178,15 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
                                                                 .spaceEvenly,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
                                                         children: [
                                                           TextButton(
                                                             onPressed: () {
+                                                              Navigator.pop(
+                                                                context,
+                                                              );
                                                               _pickImage(
                                                                 ImageSource
                                                                     .gallery,
-                                                                Navigator.pop(
-                                                                  context,
-                                                                ),
                                                               ).then((file) {
                                                                 setState(() {
                                                                   _image = file;
@@ -216,12 +197,12 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
                                                           ),
                                                           TextButton(
                                                             onPressed: () {
+                                                              Navigator.pop(
+                                                                context,
+                                                              );
                                                               _pickImage(
                                                                 ImageSource
                                                                     .camera,
-                                                                Navigator.pop(
-                                                                  context,
-                                                                ),
                                                               ).then((file) {
                                                                 setState(() {
                                                                   _image = file;
@@ -283,7 +264,10 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
         },
         child: Text(
           widget._textButtonText,
-          style: TextStyle(color: Colors.white, fontFamily: 'noto_sans_bold'),
+          style: TextStyle(
+            color: widget._textColor ?? Colors.white,
+            fontFamily: 'noto_sans_bold',
+          ),
         ),
       ),
     );
