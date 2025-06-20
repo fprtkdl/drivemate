@@ -8,10 +8,21 @@ import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ImagePickerWidget extends StatefulWidget {
-  const ImagePickerWidget({super.key, required String textButtonText})
-    : _textButtonText = textButtonText;
+  const ImagePickerWidget({
+    super.key,
+    required String textButtonText,
+    Color? buttonColorStart,
+    Color? buttonColorEnd,
+    Color? textColor,
+  }) : _textButtonText = textButtonText,
+       _buttonColorStart = buttonColorStart,
+       _buttonColorEnd = buttonColorEnd,
+       _textColor = textColor;
 
   final String _textButtonText;
+  final Color? _buttonColorStart;
+  final Color? _buttonColorEnd;
+  final Color? _textColor;
 
   @override
   State<StatefulWidget> createState() => ImagePickerWidgetState();
@@ -60,8 +71,8 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Color.fromRGBO(222, 3, 36, 1),
-            Color.fromRGBO(172, 2, 28, 1),
+            widget._buttonColorStart ?? Color.fromRGBO(222, 3, 36, 1),
+            widget._buttonColorEnd ?? Color.fromRGBO(172, 2, 28, 1),
           ],
         ),
         borderRadius: BorderRadius.circular(15),
@@ -98,6 +109,7 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
                                     style: TextStyle(
                                       fontFamily: 'noto_sans_bold',
                                       fontSize: height * 0.02,
+                                      color: widget._textColor ?? Colors.white,
                                     ),
                                   ),
                                 ),
@@ -178,10 +190,13 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
                                                     (
                                                       BuildContext context,
                                                     ) => AlertDialog(
-
                                                       content: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
                                                         children: [
                                                           TextButton(
                                                             onPressed: () {
