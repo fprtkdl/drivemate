@@ -6,39 +6,35 @@ import 'package:flutter_svg/svg.dart';
 class HomePageIconTextButton extends StatefulWidget {
   const HomePageIconTextButton({
     super.key,
-    required String svgImg,
-    String? selectedImg,
-    required String buttonText,
-    required bool isSelected,
-    VoidCallback? changed,
-  }) : _svgImg = svgImg,
-       _selectedImg = selectedImg,
-       _buttonText = buttonText,
-       _isSelected = isSelected,
-       _changed = changed;
+    required this.svgImg,
+    this.selectedImg,
+    required this.buttonText,
+    required this.isSelected,
+    this.changed,
+  });
 
-  final String _svgImg;
-  final String? _selectedImg;
-  final String _buttonText;
-  final bool _isSelected;
-  final VoidCallback? _changed;
+  final String svgImg;
+  final String? selectedImg;
+  final String buttonText;
+  final bool isSelected;
+  final VoidCallback? changed;
 
   @override
   State<StatefulWidget> createState() => HomePageIconTextButtonState();
 }
 
 class HomePageIconTextButtonState extends State<HomePageIconTextButton> {
-  Color transparent = Colors.transparent;
-  Color black = Colors.black;
-  Color white = Colors.white;
+  static const transparent = Colors.transparent;
+  static const black = Colors.black;
+  static const white = Colors.white;
 
   Timer? _timer;
   bool warningColorState = false;
-  Color iconColor = Colors.white;
+  Color iconColor = white;
 
-  void _blinkStart() {
+  void _startBlink() {
     setState(() {
-      warningColorState = !widget._isSelected;
+      warningColorState = !widget.isSelected;
       iconColor = white;
     });
     _timer?.cancel();
@@ -49,19 +45,19 @@ class HomePageIconTextButtonState extends State<HomePageIconTextButton> {
     });
   }
 
-  void _blinkStop() {
+  void _stopBlink() {
     _timer?.cancel();
     setState(() {
-      warningColorState = widget._isSelected;
+      warningColorState = widget.isSelected;
     });
   }
 
   Color _buttonColor() {
-    if (widget._svgImg == 'assets/images/ModuleB/003/warning.svg') {
-      return widget._isSelected ? white : black;
+    if (widget.svgImg == 'assets/images/ModuleB/003/warning.svg') {
+      return widget.isSelected ? white : black;
     }
 
-    return widget._isSelected ? white : black;
+    return widget.isSelected ? white : black;
   }
 
   @override
@@ -76,9 +72,9 @@ class HomePageIconTextButtonState extends State<HomePageIconTextButton> {
     final width = size.width;
     final height = size.height;
     final lockImgChange =
-        widget._selectedImg == null
-            ? widget._svgImg
-            : (widget._isSelected ? widget._selectedImg : widget._svgImg);
+        widget.selectedImg == null
+            ? widget.svgImg
+            : (widget.isSelected ? widget.selectedImg : widget.svgImg);
 
     return Column(
       children: [
@@ -87,7 +83,7 @@ class HomePageIconTextButtonState extends State<HomePageIconTextButton> {
           height: width * 0.175,
           decoration: BoxDecoration(
             border: Border.all(color: black, width: 2),
-            color: widget._isSelected ? black : transparent,
+            color: widget.isSelected ? black : transparent,
             borderRadius: BorderRadius.circular(height * 0.01),
           ),
           child: IconButton(
@@ -95,13 +91,13 @@ class HomePageIconTextButtonState extends State<HomePageIconTextButton> {
             highlightColor: transparent,
             onPressed: () {
               setState(() {
-                widget._changed?.call();
+                widget.changed?.call();
                 lockImgChange;
-                if (widget._svgImg == 'assets/images/ModuleB/003/warning.svg' &&
-                    widget._isSelected) {
-                  _blinkStart();
+                if (widget.svgImg == 'assets/images/ModuleB/003/warning.svg' &&
+                    widget.isSelected) {
+                  _startBlink();
                 } else {
-                  _blinkStop();
+                  _stopBlink();
                 }
               });
             },
@@ -117,7 +113,7 @@ class HomePageIconTextButtonState extends State<HomePageIconTextButton> {
           height: height * 0.035,
           child: Center(
             child: Text(
-              widget._buttonText,
+              widget.buttonText,
               style: TextStyle(
                 fontSize: height * 0.02,
                 fontFamily: 'noto_sans_medium',

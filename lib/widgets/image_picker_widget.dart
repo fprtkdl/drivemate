@@ -10,19 +10,16 @@ import 'package:image_picker/image_picker.dart';
 class ImagePickerWidget extends StatefulWidget {
   const ImagePickerWidget({
     super.key,
-    required String textButtonText,
-    Color? buttonColorStart,
-    Color? buttonColorEnd,
-    Color? textColor,
-  }) : _textButtonText = textButtonText,
-       _buttonColorStart = buttonColorStart,
-       _buttonColorEnd = buttonColorEnd,
-       _textColor = textColor;
+    required this.textButtonText,
+    this.buttonColorStart,
+    this.buttonColorEnd,
+    this.textColor,
+  });
 
-  final String _textButtonText;
-  final Color? _buttonColorStart;
-  final Color? _buttonColorEnd;
-  final Color? _textColor;
+  final String textButtonText;
+  final Color? buttonColorStart;
+  final Color? buttonColorEnd;
+  final Color? textColor;
 
   @override
   State<StatefulWidget> createState() => ImagePickerWidgetState();
@@ -63,8 +60,8 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            widget._buttonColorStart ?? Color.fromRGBO(222, 3, 36, 1),
-            widget._buttonColorEnd ?? Color.fromRGBO(172, 2, 28, 1),
+            widget.buttonColorStart ?? Color.fromRGBO(222, 3, 36, 1),
+            widget.buttonColorEnd ?? Color.fromRGBO(172, 2, 28, 1),
           ],
         ),
         borderRadius: BorderRadius.circular(15),
@@ -75,7 +72,7 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
             context: context,
             isScrollControlled: true,
             constraints: BoxConstraints(minWidth: width),
-            builder: (BuildContext context) {
+            builder: (context) {
               return StatefulBuilder(
                 builder: (context, setState) {
                   return Container(
@@ -109,7 +106,7 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
                                     'assets/images/ModuleA/003/cancel.svg',
                                     width: height * 0.04,
                                     fit: BoxFit.fitWidth,
-                                    colorFilter: ColorFilter.mode(
+                                    colorFilter: const ColorFilter.mode(
                                       Colors.black,
                                       BlendMode.srcIn,
                                     ),
@@ -263,9 +260,9 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
           });
         },
         child: Text(
-          widget._textButtonText,
+          widget.textButtonText,
           style: TextStyle(
-            color: widget._textColor ?? Colors.white,
+            color: widget.textColor ?? Colors.white,
             fontFamily: 'noto_sans_bold',
           ),
         ),

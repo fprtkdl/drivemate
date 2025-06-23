@@ -5,13 +5,12 @@ import '../view/choice_page.dart';
 class RadialGradientButtonWidget extends StatefulWidget {
   const RadialGradientButtonWidget({
     super.key,
-    required String gradientButtonText,
-    required int eventCode,
-  }) : _gradientButtonText = gradientButtonText,
-       _eventCode = eventCode;
+    required this.gradientButtonText,
+    required this.eventCode,
+  });
 
-  final String _gradientButtonText;
-  final int _eventCode;
+  final String gradientButtonText;
+  final int eventCode;
   @override
   State<StatefulWidget> createState() => RadialGradientButtonWidgetState();
 }
@@ -28,7 +27,7 @@ class RadialGradientButtonWidgetState
       width: width * 0.9,
       height: height * 0.07,
       decoration: BoxDecoration(
-        gradient: RadialGradient(
+        gradient: const RadialGradient(
           radius: 4.5,
           center: Alignment.center,
           colors: [
@@ -46,7 +45,7 @@ class RadialGradientButtonWidgetState
           splashFactory: NoSplash.splashFactory,
         ),
         onPressed: () {
-          if (widget._eventCode == 1) {
+          if (widget.eventCode == 1) {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => ChoicePage()),
@@ -54,7 +53,7 @@ class RadialGradientButtonWidgetState
           }
         },
         child: Text(
-          widget._gradientButtonText,
+          widget.gradientButtonText,
           style: TextStyle(
             color: Color.fromRGBO(186, 136, 130, 1),
             fontFamily: 'noto_sans_medium',

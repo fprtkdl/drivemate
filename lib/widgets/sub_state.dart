@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SubState extends StatefulWidget {
-  const SubState({super.key, required subIcon, required subText})
-    : _subIcon = subIcon,
-      _subText = subText;
+  const SubState({super.key, required this.subIcon, required this.subText});
 
-  final String _subIcon;
-  final String _subText;
+  final String subIcon;
+  final String subText;
 
   @override
   State<StatefulWidget> createState() => SubStateState();
@@ -27,12 +25,12 @@ class SubStateState extends State<SubState> {
         spacing: width * 0.01,
         children: [
           SvgPicture.asset(
-            widget._subIcon,
+            widget.subIcon,
             height: height * 0.025,
-            colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
+            colorFilter: const ColorFilter.mode(Colors.black, BlendMode.srcIn),
           ),
           Text(
-            widget._subText,
+            widget.subText,
             style: TextStyle(
               fontSize: height * 0.0175,
               fontFamily: 'noto_sans_medium',

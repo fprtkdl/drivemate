@@ -12,13 +12,12 @@ class WarringButtonWidget extends StatefulWidget {
 }
 
 class _WarringButtonWidgetState extends State<WarringButtonWidget> {
-  final String _svgImg = 'assets/images/ModuleB/003/warning.svg';
-  final String _buttonText = '비상등';
-
-  final Color _transparent = Colors.transparent;
-  final Color _white = Colors.white;
-  final Color _red = Colors.red;
-  final Color _black = Colors.black;
+  static const _svgImg = 'assets/images/ModuleB/003/warning.svg';
+  static const _buttonText = '비상등';
+  static const _transparent = Colors.transparent;
+  static const _white = Colors.white;
+  static const _red = Colors.red;
+  static const _black = Colors.black;
 
   Timer? _timer;
   Color _warringColor = Colors.black;

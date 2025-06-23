@@ -18,7 +18,7 @@ class MainLogo extends StatelessWidget {
           'assets/images/ModuleA/003/splash_img.svg',
           width: height * 0.06,
           height: height * 0.06,
-          colorFilter: ColorFilter.mode(
+          colorFilter: const ColorFilter.mode(
             Color.fromRGBO(186, 136, 130, 1),
             BlendMode.srcIn,
           ),

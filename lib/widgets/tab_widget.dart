@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 class TabWidget extends StatelessWidget {
-  const TabWidget({super.key, required tabTitle, required tabIconData})
-    : _tabTitle = tabTitle,
-      _tabIconData = tabIconData;
+  const TabWidget({
+    super.key,
+    required this.tabTitle,
+    required this.tabIconData,
+  });
 
-  final String _tabTitle;
-  final IconData _tabIconData;
+  final String tabTitle;
+  final IconData tabIconData;
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +19,8 @@ class TabWidget extends StatelessWidget {
       height: height * 0.08,
       child: Column(
         children: [
-          Icon(_tabIconData, size: height * 0.05),
-          Text(_tabTitle, style: TextStyle(fontFamily: 'noto_sans_bold')),
+          Icon(tabIconData, size: height * 0.05),
+          Text(tabTitle, style: TextStyle(fontFamily: 'noto_sans_bold')),
         ],
       ),
     );

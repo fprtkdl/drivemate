@@ -9,19 +9,16 @@ import '../view/have_choice.dart';
 class HomeHeaderWidget extends StatelessWidget {
   const HomeHeaderWidget({
     super.key,
-    required File carImage,
-    required String carName,
-    required String carNumber,
-    String centerText = '',
-  }) : _carImage = carImage,
-       _carName = carName,
-       _carNumber = carNumber,
-       _centerText = centerText;
+    required this.carImage,
+    required this.carName,
+    required this.carNumber,
+    this.centerText = '',
+  });
 
-  final File _carImage;
-  final String _carName;
-  final String _carNumber;
-  final String _centerText;
+  final File carImage;
+  final String carName;
+  final String carNumber;
+  final String centerText;
 
   @override
   Widget build(BuildContext context) {
@@ -30,17 +27,14 @@ class HomeHeaderWidget extends StatelessWidget {
     final height = size.height;
     return Container(
       width: width,
-      // height: height * 0.08,
       decoration: BoxDecoration(
         border: Border.all(
           color: Color.fromRGBO(169, 169, 169, 1.0),
-          // color: Colors.cyanAccent,
           width: 1.5,
         ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           MaterialButton(
             splashColor: Colors.transparent,
@@ -52,9 +46,9 @@ class HomeHeaderWidget extends StatelessWidget {
                 MaterialPageRoute(
                   builder:
                       (context) => HaveChoice(
-                        carImage: _carImage,
-                        carName: _carName,
-                        carNumber: _carNumber,
+                        carImage: carImage,
+                        carName: carName,
+                        carNumber: carNumber,
                       ),
                 ),
               );
@@ -62,7 +56,7 @@ class HomeHeaderWidget extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  _carName,
+                  carName,
                   style: TextStyle(
                     fontSize: height * 0.035,
                     fontFamily: 'noto_sans_medium',
@@ -71,7 +65,7 @@ class HomeHeaderWidget extends StatelessWidget {
                 SvgPicture.asset(
                   'assets/images/ModuleA/003/chevron_right.svg',
                   height: height * 0.035,
-                  colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                  colorFilter: const ColorFilter.mode(Colors.black, BlendMode.srcIn),
                 ),
               ],
             ),
@@ -80,7 +74,7 @@ class HomeHeaderWidget extends StatelessWidget {
             width: width * 0.3,
             child: Center(
               child: Text(
-                _centerText,
+                centerText,
                 style: TextStyle(
                   fontSize: height * 0.04,
                   fontFamily: 'noto_sans_bold',
@@ -93,10 +87,10 @@ class HomeHeaderWidget extends StatelessWidget {
             child: Row(
               children: [
                 SvgIconButtonWidget(
-                  sgImage: 'assets/images/ModuleB/003/notifications.svg',
+                  svgImage: 'assets/images/ModuleB/003/notifications.svg',
                 ),
                 SvgIconButtonWidget(
-                  sgImage: 'assets/images/ModuleB/003/settings.svg',
+                  svgImage: 'assets/images/ModuleB/003/settings.svg',
                 ),
               ],
             ),

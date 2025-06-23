@@ -3,33 +3,31 @@ import 'package:flutter/material.dart';
 class CreateTextField extends StatefulWidget {
   const CreateTextField({
     super.key,
-    required inputBoxWidth,
-    required double iconHeight,
-    required String inputHintText,
-    required IconData inputIconData,
-    Color? iconColor = Colors.black26,
+    required this.inputBoxWidth,
+    required this.iconHeight,
+    required this.inputHintText,
+    required this.inputIconData,
     this.textEditingController,
-    this.onPressedCustom,
-  }) : _inputBoxWidth = inputBoxWidth,
-       _iconHeight = iconHeight,
-       _inputHintText = inputHintText,
-       _inputIconData = inputIconData,
-       _iconColor = iconColor;
+    this.focusNode,
+    this.nextFocus,
+    this.iconColor = Colors.black26,
+  });
 
-  final double _inputBoxWidth;
-  final double _iconHeight;
-  final String _inputHintText;
-  final IconData _inputIconData;
-  final Color? _iconColor;
+  final double inputBoxWidth;
+  final double iconHeight;
+  final String inputHintText;
+  final IconData inputIconData;
   final TextEditingController? textEditingController;
-  final VoidCallback? onPressedCustom;
+  final FocusNode? focusNode;
+  final void Function(String)? nextFocus;
+  final Color? iconColor;
 
   @override
-  State<StatefulWidget> createState() => CreateTextFieldState();
+  State<CreateTextField> createState() => CreateTextFieldState();
 }
 
 class CreateTextFieldState extends State<CreateTextField> {
-  final _outlineBorder = OutlineInputBorder(
+  static final _outlineBorder = OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(15)),
     borderSide: BorderSide.none,
   );
@@ -37,24 +35,25 @@ class CreateTextFieldState extends State<CreateTextField> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: widget._inputBoxWidth,
+      width: widget.inputBoxWidth,
       child: TextField(
         controller: widget.textEditingController,
-        onTapOutside: (e) {
-          FocusManager.instance.primaryFocus?.unfocus();
-        },
-        style: TextStyle(fontFamily: 'noto_sans_light'),
+        focusNode: widget.focusNode,
+        obscureText: widget.inputHintText == 'Password',
+        style: const TextStyle(fontFamily: 'noto_sans_light'),
+        onTapOutside: (_) => FocusManager.instance.primaryFocus?.unfocus(),
+        onSubmitted: widget.nextFocus,
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
-          hintText: widget._inputHintText,
-          hintStyle: TextStyle(color: Colors.black45),
+          hintText: widget.inputHintText,
+          hintStyle: const TextStyle(color: Colors.black45),
           border: _outlineBorder,
           focusedBorder: _outlineBorder,
           prefixIcon: Icon(
-            widget._inputIconData,
-            color: widget._iconColor,
-            size: widget._iconHeight,
+            widget.inputIconData,
+            color: widget.iconColor,
+            size: widget.iconHeight,
           ),
         ),
       ),

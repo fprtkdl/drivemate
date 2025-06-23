@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SvgIconButtonWidget extends StatefulWidget {
-  const SvgIconButtonWidget({super.key, required sgImage})
-    : _svgImage = sgImage;
+  const SvgIconButtonWidget({super.key, required this.svgImage, this.clickEvent});
 
-  final String _svgImage;
+  final String svgImage;
+  final VoidCallback? clickEvent;
 
   @override
   State<StatefulWidget> createState() => SvgIconButtonWidgetState();
@@ -20,11 +20,11 @@ class SvgIconButtonWidgetState extends State<SvgIconButtonWidget> {
     return IconButton(
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
-      onPressed: () {},
+      onPressed: widget.clickEvent,
       icon: SvgPicture.asset(
-        widget._svgImage,
+        widget.svgImage,
         height: height * 0.04,
-        colorFilter: ColorFilter.mode(Colors.black, BlendMode.srcIn),
+        colorFilter: const ColorFilter.mode(Colors.black, BlendMode.srcIn),
       ),
     );
   }

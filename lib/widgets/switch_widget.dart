@@ -9,6 +9,7 @@ class SwitchWidget extends StatefulWidget {
 
 class SwitchWidgetState extends State<SwitchWidget> {
   bool isChecked = false;
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);

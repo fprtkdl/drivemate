@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class VerticalMenuWidget extends StatelessWidget {
-  const VerticalMenuWidget({super.key, required svgImage, required menuText})
-    : _svgImage = svgImage,
-      _menuText = menuText;
+class HomePageScrollListBtn extends StatelessWidget {
+  const HomePageScrollListBtn({
+    super.key,
+    required this.svgImage,
+    required this.menuText,
+  });
 
-  final String _svgImage;
-  final String _menuText;
+  final String svgImage;
+  final String menuText;
 
   @override
   Widget build(BuildContext context) {
@@ -19,30 +21,33 @@ class VerticalMenuWidget extends StatelessWidget {
       child: SizedBox(
         height: height * 0.0625,
         child: DecoratedBox(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             border: Border(bottom: BorderSide(color: Colors.grey, width: 1)),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
-                spacing: width * 0.04,
                 children: [
                   SvgPicture.asset(
-                    _svgImage,
+                    svgImage,
                     height: height * 0.03,
-                    colorFilter: ColorFilter.mode(
+                    colorFilter: const ColorFilter.mode(
                       Color.fromRGBO(186, 136, 130, 1),
                       BlendMode.srcIn,
                     ),
                   ),
-                  Text(_menuText, style: TextStyle(color: Colors.white)),
+                  SizedBox(width: width * 0.04),
+                  Text(menuText, style: const TextStyle(color: Colors.white)),
                 ],
               ),
               SvgPicture.asset(
                 'assets/images/ModuleA/003/chevron_right.svg',
                 height: height * 0.03,
-                colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                colorFilter: const ColorFilter.mode(
+                  Colors.white,
+                  BlendMode.srcIn,
+                ),
               ),
             ],
           ),

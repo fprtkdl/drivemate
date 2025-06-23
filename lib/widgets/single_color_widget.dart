@@ -3,44 +3,37 @@ import 'package:flutter/material.dart';
 class SingleColorWidget extends StatelessWidget {
   const SingleColorWidget({
     super.key,
-    required String simpleButtonText,
-    required Color simpleButtonColor,
-    required Color simpleButtonTextColor,
-    this.magicNumber,
-  }) : _simpleButtonText = simpleButtonText,
-       _simpleButtonColor = simpleButtonColor,
-       _simpleButtonTextColor = simpleButtonTextColor;
+    required this.simpleButtonText,
+    required this.simpleButtonColor,
+    required this.simpleButtonTextColor,
+    this.clickEvent
+  });
 
-  final String _simpleButtonText;
-  final Color _simpleButtonColor;
-  final Color _simpleButtonTextColor;
-  final int? magicNumber;
+  final String simpleButtonText;
+  final Color simpleButtonColor;
+  final Color simpleButtonTextColor;
+  final VoidCallback? clickEvent;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
-    final width = size.width;
-    final height = size.height;
 
     return Container(
-      width: width * 0.775,
-      height: height * 0.06,
-      color: _simpleButtonColor,
-
+      width: size.width * 0.775,
+      height: size.height * 0.06,
+      color: simpleButtonColor,
       child: TextButton(
         style: ButtonStyle(
-          overlayColor: WidgetStateColor.resolveWith(
-            (states) => Colors.transparent,
-          ),
+          overlayColor: WidgetStateColor.resolveWith((_) => Colors.transparent),
           splashFactory: NoSplash.splashFactory,
         ),
-        onPressed: () {},
+        onPressed: clickEvent,
         child: Text(
-          _simpleButtonText,
+          simpleButtonText,
           style: TextStyle(
-            color: _simpleButtonTextColor,
+            color: simpleButtonTextColor,
             fontFamily: 'noto_sans_bold',
-            fontSize: height * 0.018,
+            fontSize: size.height * 0.018,
           ),
         ),
       ),

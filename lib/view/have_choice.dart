@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:drivemate/view/my_navigation_bar.dart';
 import 'package:drivemate/widgets/image_picker_widget.dart';
 import 'package:drivemate/widgets/main_logo.dart';
-import 'package:drivemate/widgets/radial_gradient_button_widget.dart.dart';
 import 'package:drivemate/widgets/switch_widget.dart';
 import 'package:flutter/material.dart';
 

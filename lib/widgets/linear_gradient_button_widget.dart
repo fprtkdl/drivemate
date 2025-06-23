@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 class LinearGradientButtonWidget extends StatefulWidget {
   const LinearGradientButtonWidget({
     super.key,
-    required String gradientButtonText,
+    required this.gradientButtonText,
     this.onPressedCustom,
-  }) : _gradientButtonText = gradientButtonText;
+  });
 
-  final String _gradientButtonText;
+  final String gradientButtonText;
   final VoidCallback? onPressedCustom;
 
   @override
@@ -26,7 +26,7 @@ class LinearGradientButtonWidgetState
       width: width * 0.9,
       height: height * 0.07,
       decoration: BoxDecoration(
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
@@ -39,7 +39,7 @@ class LinearGradientButtonWidgetState
       child: TextButton(
         style: ButtonStyle(
           overlayColor: WidgetStateColor.resolveWith(
-                (states) => Colors.transparent,
+            (states) => Colors.transparent,
           ),
           splashFactory: NoSplash.splashFactory,
         ),
@@ -47,8 +47,11 @@ class LinearGradientButtonWidgetState
           widget.onPressedCustom?.call();
         },
         child: Text(
-          widget._gradientButtonText,
-          style: TextStyle(color: Colors.white, fontFamily: 'noto_sans_bold'),
+          widget.gradientButtonText,
+          style: const TextStyle(
+            color: Colors.white,
+            fontFamily: 'noto_sans_bold',
+          ),
         ),
       ),
     );

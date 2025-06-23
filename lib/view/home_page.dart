@@ -4,7 +4,7 @@ import 'package:drivemate/provider/home_icon_provider.dart';
 import 'package:drivemate/widgets/file_image_frame_widget.dart';
 import 'package:drivemate/widgets/home_page_icon_text_button.dart';
 import 'package:drivemate/widgets/sub_state.dart';
-import 'package:drivemate/widgets/vertical_menu_widget.dart';
+import 'package:drivemate/widgets/home_page_scroll_list_btn.dart';
 import 'package:drivemate/widgets/warring_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -202,22 +202,22 @@ class HomePageState extends State<HomePageWidget> {
                             child: Column(
                               children: [
                                 SizedBox(height: height * 0.015),
-                                VerticalMenuWidget(
+                                HomePageScrollListBtn(
                                   svgImage:
                                       'assets/images/ModuleB/003/car-svgrepo.svg',
                                   menuText: 'Vehicle control',
                                 ),
-                                VerticalMenuWidget(
+                                HomePageScrollListBtn(
                                   svgImage:
                                       'assets/images/ModuleB/003/car-svgrepo.svg',
                                   menuText: 'Vehicle control',
                                 ),
-                                VerticalMenuWidget(
+                                HomePageScrollListBtn(
                                   svgImage:
                                       'assets/images/ModuleB/003/car-svgrepo.svg',
                                   menuText: 'Vehicle control',
                                 ),
-                                VerticalMenuWidget(
+                                HomePageScrollListBtn(
                                   svgImage:
                                       'assets/images/ModuleB/003/car-svgrepo.svg',
                                   menuText: 'Vehicle control',
