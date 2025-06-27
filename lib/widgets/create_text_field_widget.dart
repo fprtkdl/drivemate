@@ -39,6 +39,7 @@ class CreateTextFieldState extends State<CreateTextField> {
       child: TextField(
         controller: widget.textEditingController,
         focusNode: widget.focusNode,
+
         obscureText: widget.inputHintText == 'Password',
         style: const TextStyle(fontFamily: 'noto_sans_light'),
         onTapOutside: (_) => FocusManager.instance.primaryFocus?.unfocus(),

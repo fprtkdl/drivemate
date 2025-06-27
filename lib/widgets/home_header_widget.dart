@@ -55,17 +55,24 @@ class HomeHeaderWidget extends StatelessWidget {
             },
             child: Row(
               children: [
-                Text(
-                  carName,
-                  style: TextStyle(
-                    fontSize: height * 0.035,
-                    fontFamily: 'noto_sans_medium',
+                SizedBox(
+                  width: width * 0.14,
+                  child: Text(
+                    carName,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: height * 0.03,
+                      fontFamily: 'noto_sans_medium',
+                    ),
                   ),
                 ),
                 SvgPicture.asset(
                   'assets/images/ModuleA/003/chevron_right.svg',
                   height: height * 0.035,
-                  colorFilter: const ColorFilter.mode(Colors.black, BlendMode.srcIn),
+                  colorFilter: const ColorFilter.mode(
+                    Colors.black,
+                    BlendMode.srcIn,
+                  ),
                 ),
               ],
             ),

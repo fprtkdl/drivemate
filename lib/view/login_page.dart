@@ -34,100 +34,86 @@ class LoginPageState extends State<LoginPage> {
     final height = size.height;
 
     return Scaffold(
-      resizeToAvoidBottomInset: true,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          // scrollDirection: Axis.vertical,
-          child: PopScope(
-            canPop: false,
-            child: Container(
-              width: width,
-              height: height,
-              color: Colors.black,
-              child: Column(
-                children: [
-                  SizedBox(height: height * 0.05),
-                  MainLogo(),
-                  SizedBox(
-                    height: height * 0.3,
-                    child: const Image(
-                      image: AssetImage(
-                        'assets/images/ModuleA/003/red car.png',
-                      ),
-                    ),
+      resizeToAvoidBottomInset: false,
+      body: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        child: PopScope(
+          canPop: false,
+          child: Container(
+            width: width,
+            height: height,
+            color: Colors.black,
+            child: Column(
+              children: [
+                SizedBox(height: height * 0.05),
+                MainLogo(),
+                SizedBox(
+                  height: height * 0.3,
+                  child: const Image(
+                    image: AssetImage('assets/images/ModuleA/003/red car.png'),
                   ),
-                  Text(
-                    '로그인 정보를 입력하세요.',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'noto_sans_medium',
-                    ),
+                ),
+                Text(
+                  '로그인 정보를 입력하세요.',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'noto_sans_medium',
                   ),
-                  SizedBox(height: height * 0.015),
-                  SizedBox(
-                    width: width,
-                    height: height * 0.15,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CreateTextField(
-                          inputBoxWidth: width * 0.9,
-                          iconHeight: height * 0.04,
-                          inputHintText: 'Username',
-                          inputIconData: Icons.person,
-                          textEditingController: userController,
-                          nextFocus:
-                              (_) =>
-                                  FocusScope.of(context).requestFocus(passNode),
-                        ),
-                        CreateTextField(
-                          inputBoxWidth: width * 0.9,
-                          iconHeight: height * 0.04,
-                          inputHintText: 'Password',
-                          inputIconData: Icons.lock,
-                          textEditingController: passController,
-                          focusNode: passNode,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SwitchWidget(),
-                  LinearGradientButtonWidget(
-                    gradientButtonText: 'Sign In',
-                    onPressedCustom: () {
-                      String userText =
-                          userController.text.trim(); // UsernameTextField
-                      String passText =
-                          passController.text.trim(); // PasswordTextField
-                      if (userText.isNotEmpty &&
-                          userText.length >= 4 &&
-                          passText.isNotEmpty &&
-                          passText.length >= 4) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ChoicePage()),
-                        );
-                      }
-                    },
-                  ),
-                  SizedBox(height: height * 0.02),
-                  SingleColorWidget(
-                    simpleButtonText: 'Sign Up',
-                    simpleButtonColor: Color.fromRGBO(126, 126, 126, 1.0),
-                    simpleButtonTextColor: Colors.white,
-                  ),
-                  SizedBox(height: height * 0.02),
-                  SingleColorWidget(
-                    simpleButtonText: 'Password Reset',
-                    simpleButtonColor: Colors.white,
-                    simpleButtonTextColor: Colors.black,
-                  ),
-                ],
-              ),
+                ),
+                SizedBox(height: height * 0.015),
+                CreateTextField(
+                  inputBoxWidth: width * 0.9,
+                  iconHeight: height * 0.04,
+                  inputHintText: 'Username',
+                  inputIconData: Icons.person,
+                  textEditingController: userController,
+                  nextFocus: (_) => FocusScope.of(context).requestFocus(passNode),
+                ),
+                SizedBox(height: height * 0.01),
+                CreateTextField(
+                  inputBoxWidth: width * 0.9,
+                  iconHeight: height * 0.04,
+                  inputHintText: 'Password',
+                  inputIconData: Icons.lock,
+                  textEditingController: passController,
+                  focusNode: passNode,
+                ),
+                SwitchWidget(),
+                LinearGradientButtonWidget(
+                  gradientButtonText: 'Sign In',
+                  onPressedCustom: () {
+                    String userText =
+                    userController.text.trim(); // UsernameTextField
+                    String passText =
+                    passController.text.trim(); // PasswordTextField
+                    if (userText.isNotEmpty &&
+                        userText.length >= 4 &&
+                        passText.isNotEmpty &&
+                        passText.length >= 4) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ChoicePage()),
+                      );
+                    }
+                  },
+                ),
+                SizedBox(height: height * 0.02),
+                SingleColorWidget(
+                  simpleButtonText: 'Sign Up',
+                  simpleButtonColor: Color.fromRGBO(126, 126, 126, 1.0),
+                  simpleButtonTextColor: Colors.white,
+                ),
+                SizedBox(height: height * 0.02),
+                SingleColorWidget(
+                  simpleButtonText: 'Password Reset',
+                  simpleButtonColor: Colors.white,
+                  simpleButtonTextColor: Colors.black,
+                ),
+              ],
             ),
           ),
         ),
-      ),
+      )
     );
   }
 }
