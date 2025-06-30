@@ -57,7 +57,11 @@ class StatusPageCarChildWidgetState extends State<StatusPageCarChildWidget> {
                 ],
               ),
               Text(
-                widget.state ? '열림' : '닫힘',
+                widget.state
+                    ? '열림'
+                    : widget.barBtnText == '도어'
+                    ? '잠김'
+                    : '닫힘',
                 style: TextStyle(
                   color: iconColor,
                   fontSize: height * 0.02,

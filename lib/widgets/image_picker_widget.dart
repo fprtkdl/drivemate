@@ -162,7 +162,10 @@ class ImagePickerWidgetState extends State<ImagePickerWidget> {
                                         child: MaterialButton(
                                           child:
                                               _image == null
-                                                  ? const SizedBox.shrink()
+                                                  ? SvgPicture.asset(
+                                                    'assets/images/ModuleA/003/image.svg',
+                                                    width: width * 0.15,
+                                                  )
                                                   : Image.file(_image!),
                                           onPressed:
                                               () => showDialog(

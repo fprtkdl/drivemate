@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:drivemate/view/hvac_page.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/home_header_widget.dart';
@@ -69,8 +70,8 @@ class StatusPageState extends State<StatusPage> {
               Expanded(
                 child: TabBarView(
                   children: [
-                    CarStatusPageWidget(),
-                    ColoredBox(color: Colors.cyan),
+                    CarStatusPage(),
+                    HVACPage(),
                   ],
                 ),
               ),

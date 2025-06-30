@@ -1,18 +1,17 @@
-import 'package:drivemate/widgets/status_page_car_child.dart';
+import 'package:drivemate/widgets/status_page_hvac_child.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
 
 import '../provider/home_icon_provider.dart';
 
-class CarStatusPage extends StatefulWidget {
-  const CarStatusPage({super.key});
+class HVACPage extends StatefulWidget {
+  const HVACPage({super.key});
 
   @override
-  State<StatefulWidget> createState() => CarStatusPageState();
+  State<StatefulWidget> createState() => HVACPageState();
 }
 
-class CarStatusPageState extends State<CarStatusPage> {
+class HVACPageState extends State<HVACPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
@@ -29,7 +28,7 @@ class CarStatusPageState extends State<CarStatusPage> {
             alignment: Alignment.centerLeft,
             padding: EdgeInsets.symmetric(horizontal: width * 0.05),
             child: Text(
-              '차량 상태',
+              '공조 상태',
               style: TextStyle(
                 fontSize: height * 0.02,
                 fontFamily: 'noto_sans_bold',
@@ -42,24 +41,34 @@ class CarStatusPageState extends State<CarStatusPage> {
               builder: (context, provider, _) {
                 return Column(
                   children: [
-                    StatusPageCarChildWidget(
-                      svgImage: 'assets/images/ModuleB/003/door2.svg',
-                      barBtnText: '도어',
+                    StatusPageHVACChildWidget(
+                      svgImage: 'assets/images/ModuleB/003/mode_cool.svg',
+                      barBtnText: '냉/난방',
                       state: provider.doorState,
+                      useHeat: false,
                     ),
-                    StatusPageCarChildWidget(
-                      svgImage: 'assets/images/ModuleB/003/window.svg',
-                      barBtnText: '창문',
+                    StatusPageHVACChildWidget(
+                      svgImage: 'assets/images/ModuleB/003/handle.svg',
+                      barBtnText: '핸들 열선',
                       state: provider.windowState,
+                      heatTop: 0.0225,
                     ),
-                    StatusPageCarChildWidget(
-                      svgImage: 'assets/images/ModuleB/003/tailgate.svg',
-                      barBtnText: '테일게이트',
+                    StatusPageHVACChildWidget(
+                      svgImage: 'assets/images/ModuleB/003/mirror.svg',
+                      barBtnText: '앞유리 성에 제거',
                       state: provider.powerState,
+                      angle: 0.5,
                     ),
-                    StatusPageCarChildWidget(
-                      svgImage: 'assets/images/ModuleB/003/bonnet.svg',
-                      barBtnText: '후드',
+                    StatusPageHVACChildWidget(
+                      svgImage: 'assets/images/ModuleB/003/mirror.svg',
+                      barBtnText: '뒷유리 열선',
+                      state: provider.powerState,
+                      angle: 0.5,
+                      heatTop: 0.04,
+                    ),
+                    StatusPageHVACChildWidget(
+                      svgImage: 'assets/images/ModuleB/003/side_mirror.svg',
+                      barBtnText: '사이드 미러 열선',
                       state: provider.powerState,
                     ),
                   ],
